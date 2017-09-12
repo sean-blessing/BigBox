@@ -7,9 +7,13 @@ import bigbox.db.BigBoxDAO;
 import bigbox.db.BigBoxFactory;
 import bigbox.util.Console;
 import bigbox.util.Formatter;
+import bigbox.util.StringUtil;
 
 public class BigBoxApp {
 	private static BigBoxDAO dao;
+	private final static int DIV_NO_LENGTH = 3;
+	private final static int STORE_NO_LENGTH = 5;
+	private final static int NAME_LENGTH = 20;
 
 	public static void main(String[] args) {
 		Console.displayLine("Welcome to the BigBoxApp! - Array DAO Version");
@@ -61,9 +65,7 @@ public class BigBoxApp {
 	private static String listAllStores() {
 		String str = "";
 		ArrayList<Store> stores = dao.listAllStores();
-		for (Store s: stores) {
-			str+=s.toString()+"\n";
-		}
+		str = generateStoresReport(stores);
 		return str;
 	}
 
@@ -81,10 +83,31 @@ public class BigBoxApp {
 	private static String listAllStores(String d) {
 		String str = "";
 		ArrayList<Store> stores = dao.listAllStores(d);
-		for (Store s: stores) {
-			str+=s.toString()+"\n";
-		}
+		str = generateStoresReport(stores);
 		return str;
 	}
-
+	
+	/*
+	 * Create a report for the given stores, w/ a heading
+	 */
+	private static String generateStoresReport(ArrayList<Store> stores) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(StringUtil.pad("Div#", DIV_NO_LENGTH+2));
+		sb.append(StringUtil.pad("Store#", " ", STORE_NO_LENGTH+3));
+		sb.append(StringUtil.pad("Name", " ", NAME_LENGTH));
+		sb.append("\n");
+		sb.append(StringUtil.pad("", "=", DIV_NO_LENGTH));
+		sb.append("  ");
+		sb.append(StringUtil.pad("", "=", STORE_NO_LENGTH+1));
+		sb.append("  ");
+		sb.append(StringUtil.pad("", "=", NAME_LENGTH));
+		sb.append("\n");
+		for (Store s: stores) {
+			sb.append(StringUtil.pad(s.getDivisionNumber(), DIV_NO_LENGTH+2));
+			sb.append(StringUtil.pad(s.getStoreNumber(), " ", STORE_NO_LENGTH+3));
+			sb.append(StringUtil.pad(s.getName(), " ", NAME_LENGTH));
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
 }
