@@ -1,11 +1,13 @@
 package bigbox.db;
 
+import java.util.ArrayList;
+
 import bigbox.business.Division;
 import bigbox.business.Store;
 
 public interface BigBoxReader {
-	Store[] listAllStores();
-	Store[] listAllStores(String d);
+	ArrayList<Store> listAllStores();
+	ArrayList<Store> listAllStores(String d);
 	double getSalesSummary();
 	double getSalesSummary(String d);
 }

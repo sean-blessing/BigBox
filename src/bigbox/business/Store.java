@@ -63,4 +63,18 @@ public class Store extends Facility implements Serializable {
 	public String toString() {
 		return "[Store: div#="+getDivisionNumber()+", store#="+getStoreNumber()+", sales="+Formatter.getFormattedDouble(getSales())+"], "+ super.toString();
 	}
+	public String[] toStringArray() {
+		String[] stringArray = new String[9];
+		stringArray[0] = getDivisionNumber();
+		stringArray[1] = getStoreNumber();
+		stringArray[2] = Double.toString(getSales());
+		stringArray[3] = Double.toString(getId());
+		stringArray[4] = getName();
+		stringArray[5] = getAddress();
+		stringArray[6] = getCity();
+		stringArray[7] = getState();
+		stringArray[8] = getZipCode();
+		
+		return stringArray;
+	}
 }

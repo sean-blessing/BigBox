@@ -1,5 +1,7 @@
 package bigbox.presentation;
 
+import java.util.ArrayList;
+
 import bigbox.business.Store;
 import bigbox.db.BigBoxDAO;
 import bigbox.db.BigBoxFactory;
@@ -17,6 +19,7 @@ public class BigBoxApp {
 			Console.displayLine();
 			Console.displayLine("COMMAND MENU");
 			Console.displayLine("list      - List All Stores");
+			Console.displayLine("array     - Array of stores");
 			Console.displayLine("div       - List All Stores for a Division");
 			Console.displayLine("sales     - Sales Summary All Stores");
 			Console.displayLine("divsales  - Sales Summary for a Division");
@@ -29,6 +32,10 @@ public class BigBoxApp {
 				if (command.equalsIgnoreCase("list")) {
 					displayString = listAllStores();
 					Console.displayLine(displayString);
+//				}
+//				else if (command.equalsIgnoreCase("array")) {
+//						displayString = listAllStoresArray();
+//						Console.displayLine(displayString);
 				} else if (command.equalsIgnoreCase("div")) {
 					String divNbr = Console.getStringNbr("Enter division #:  ");
 					displayString = listAllStores(divNbr);
@@ -53,16 +60,27 @@ public class BigBoxApp {
 	
 	private static String listAllStores() {
 		String str = "";
-		Store[] stores = dao.listAllStores();
+		ArrayList<Store> stores = dao.listAllStores();
 		for (Store s: stores) {
 			str+=s.toString()+"\n";
 		}
 		return str;
 	}
 
+//	private static String listAllStoresArray() {
+//		String str = "";
+//		ArrayList<Store> stores = dao.listAllStores();
+//		String[][] storesArray = new String[stores.length][9];
+//		for (int i=0; i<stores.length;i++) {
+//			storesArray[i] = stores[i].toStringArray();
+//		}
+//		System.out.println(storesArray);
+//		return str;
+//	}
+
 	private static String listAllStores(String d) {
 		String str = "";
-		Store[] stores = dao.listAllStores(d);
+		ArrayList<Store> stores = dao.listAllStores(d);
 		for (Store s: stores) {
 			str+=s.toString()+"\n";
 		}
